@@ -270,21 +270,25 @@
             to { opacity: 1; }
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
-            background-color: #ffffff;
+            background-color: #8B0000;
             color: #ffffff;
             line-height: 1.6;
             min-height: 100vh;
-            background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+            background: linear-gradient(135deg, #990000 0%, #8B0000 50%, #800000 100%);
+            background-attachment: fixed;
         }
 
         .container {
             max-width: 800px;
             margin: 40px auto;
             padding: 40px 20px;
-            background: linear-gradient(145deg, #990000 0%, #8B0000 50%, #800000 100%);
-            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.3),
-            inset 0 0 100px rgba(0,0,0,0.2);
+            background: #8B0000;
+            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
             animation: fadeInScale 1.2s ease-out;
@@ -470,34 +474,38 @@
         }
 
         .calendar-section {
-            margin: 60px 0;
+            margin: 60px auto;
             text-align: center;
             background: rgba(255,255,255,0.08);
             padding: 40px 20px;
-            border-radius: 15px;
+            border-radius: 20px;
             position: relative;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255,255,255,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            max-width: 600px;
             animation: slideInUp 1s ease-out;
+            overflow: hidden;
         }
 
         .calendar-section::before,
         .calendar-section::after {
-            content: '❦';
+            content: '';
             position: absolute;
-            font-size: 2rem;
-            color: rgba(255,255,255,0.6);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
         }
 
         .calendar-section::before {
-            top: 10px;
-            left: 20px;
+            top: -100px;
+            left: -100px;
         }
 
         .calendar-section::after {
-            bottom: 10px;
-            right: 20px;
+            bottom: -100px;
+            right: -100px;
         }
 
         @keyframes slideInUp {
@@ -512,35 +520,121 @@
         }
 
         .month-title {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
             color: #ffffff;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+            padding: 0 30px;
+        }
+
+        .month-title::before,
+        .month-title::after {
+            content: '♥';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .month-title::before {
+            left: 0;
+        }
+
+        .month-title::after {
+            right: 0;
         }
 
         .calendar {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 8px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .calendar th {
-            padding: 10px;
-            background-color: rgba(255,255,255,0.2);
-            color: #ffffff;
-            font-weight: 500;
+            padding: 15px 5px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 400;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .calendar td {
             padding: 12px;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.15);
             text-align: center;
+            border-radius: 12px;
+            position: relative;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .calendar td:not(:empty):hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .wedding-day {
-            background-color: #ffffff;
+            background: rgba(255,255,255,0.95);
             color: #8B0000;
             font-weight: bold;
-            border-radius: 50%;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: visible;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255,255,255,0.3);
+        }
+
+        .wedding-day::before,
+        .wedding-day::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 12px;
+            z-index: -1;
+        }
+
+        .wedding-day::before {
+            background: linear-gradient(45deg, 
+                #fff, #ffcdd2, #fff, #ffcdd2, 
+                #fff, #ffcdd2, #fff);
+            background-size: 400%;
+            animation: borderRotate 8s linear infinite;
+            filter: blur(3px);
+        }
+
+        .wedding-day::after {
+            background: #8B0000;
+            opacity: 0.7;
+            filter: blur(5px);
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes borderRotate {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+            100% { opacity: 0.5; transform: scale(1); }
+        }
+
+        .calendar td.wedding-day:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 5px 20px rgba(255,255,255,0.4);
         }
 
         .today-indicators {
@@ -1019,14 +1113,14 @@
         <header class="header">
             <div class="photos-grid">
                 <div class="photo-item main-photo">
-                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500" alt="Пара">
+                    <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=500" alt="Пара вместе">
                 </div>
                 <div class="side-photos">
                     <div class="photo-item">
-                        <img src="https://images.unsplash.com/photo-1519741347686-c1e0020f2aa7?w=300" alt="Романтическое фото 1">
+                        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=300" alt="Романтическая прогулка">
                     </div>
                     <div class="photo-item">
-                        <img src="https://images.unsplash.com/photo-1492552181161-62217fc3076d?w=300" alt="Романтическое фото 2">
+                        <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=300" alt="Романтический момент">
                     </div>
                 </div>
             </div>
